@@ -1,0 +1,108 @@
+\newcommand{\specname}{bellofy}
+\newcommand{\status}{Beta}
+\newcommand{\ecn}{NA}
+\newcommand{\revdate}{120128}
+\newcommand{\rev}{000}
+
+\documentclass[dvips,12pt]{article}
+\renewcommand{\contentsname}{3. Index} 
+
+\usepackage{amsmath}
+%\usepackage{program}
+\usepackage{a4,color,graphics,palatino,fancyhdr}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{changepage}% http://ctan.org/pkg/changepage
+\usepackage{graphicx}
+\usepackage{float}
+
+\floatstyle{ruled}
+\newfloat{program}{thp}{lop}
+\floatname{program}{Source Code}
+
+\setlength{\headheight}{15pt}
+
+\setcounter{secnumdepth}{1}
+\setcounter{tocdepth}{1}
+
+\lhead{\specname}
+\rhead{rev.\  \rev} 
+\chead{\revdate}
+\cfoot{\footnotesize Page\ \thepage\ of \pageref{LastPage}}
+\pagestyle{fancy}
+
+\title{bellofy}
+
+\author{chaz}
+
+\begin{document}
+
+\frenchspacing
+
+\section{Purpose}
+Documentation for bellofy program
+
+\tableofcontents
+\listoffigures
+
+
+\section{What is a bellows}
+
+Google it. It's camera thing. You make them out of fabric or paper or 
+leather or something. It's really hard to get them straight and to the 
+right dimension. 
+
+I used a CAD program to draw my first bellows pattern, but it was a waste
+because it was only valid for the particular bellows I needed then. Bellotron
+is designed to generate patterns for arbitrary bellows. 
+
+\section{Pluralization of "bellows"}
+
+It seems to be something of a mass noun; I hear both "a bellows" and 
+"the bellows" and just "bellows". I rarely see "a bellow".
+
+\section{Patterns}
+
+The camera bellows pattern I'm using is a hybrid of several techniques
+I saw online and what I found to work from making the bellows myself.
+
+In general bellows can be either square in aspect ratio (such as for a square
+camera format like 6x6) or non-square (such as for a camera that is wider 
+than tall, like a panoramic camera format). Besides that, the bellows may
+be tapered from the rear standard of the camera (larger typically) to the
+front standard of the camera. Furthermore, we may also wish the pleats 
+of the bellows to taper in size from the rear
+to the front of the the camera. And the aspect ratio of the bellows can 
+even change between the front and rear of the camera...the front may be
+square and the rear may be non-square! So you can see how complicated 
+it can be to make one and get
+it to fit your camera once it's folded. In the past, I have made the 
+bellows first, then built the camera around it, but this doesn't work
+for making replacements. 
+
+Bellotron is intended to handle all the variations described above. It is
+intended for cameras, so it does
+not handle non-rectangular bellows (no octagon or triangular bellows)
+and it cannot handle pleats that vary in size nonlinearly from the rear
+to the front of the camera (some cameras have even-size big pleats for the back half
+of the bellows, then the pleats start tapering down from the middle of the bellows 
+to the front).
+
+Given this theoretical bellows definition, The essential parameters are the (folded) 
+inner and outer widths, the inner and outer height for the front and rear standards, and 
+the desired length (when fully extended). Defined this way, the pleat-size is automatically
+determined by these constraints and pleat-size linearly changes between the front and 
+back standards. 
+
+\section{Technical details}
+
+The patterns are written in PostScript which may be directly printed on most printers.
+
+
+\centering
+\vspace{2cm}
+END OF DATA
+\appendix
+
+\end{document}
+
