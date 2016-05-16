@@ -112,20 +112,29 @@ sub bellofy{    # bellows-drawing algorithm.
     0 $row lineto
     $row $row lineto
     $row 0 lineto
-    0 0 lineto
+    0 0 lineto";
 
+    $tmp=($row-$riw)/2;
+
+    print $outfile "
+    $tmp $tmp translate
     0 0 moveto
     0 $riw lineto
     $riw $riw lineto
     $riw 0 lineto
     0 0 lineto
 
+    -$tmp -$tmp translate
     0 0 moveto
     0 $fiw lineto
     $fiw $fiw lineto
     $fiw 0 lineto
-    0 0 lineto
+    0 0 lineto";
 
+    $tmp=($fow-$fiw)/2;
+
+    print $outfile "
+    $tmp $tmp translate
     0 0 moveto
     0 $fow lineto
     $fow $fow lineto
