@@ -27,6 +27,9 @@ $fiw=100;
 $fow=120;
 $length=200;
 
+$x0=200;
+$y0=200;
+
 #&commandline;
 #&get_UI;
 &bellofy;
@@ -42,7 +45,7 @@ sub bellofy{    # bellows-drawing algorithm.
     print $ps "
     %move to center of paper based on heuristic estimate of bellows extant
     newpath
-    100 100 moveto
+    $x0 $y0 moveto
     ";
 
     $toplength=$length;       # [over]simplification; fixme
@@ -53,8 +56,15 @@ sub bellofy{    # bellows-drawing algorithm.
     print $ps "
     0 $toplength rlineto
     stroke 
-    100 100 moveto
+    $x0 $y0 moveto
     ";
+
+    foreach $pleat (0..$numpleats){
+        $xtmp=$x0-$row/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$x0+$row/2;
+        &line($xtmp, $ytmp, $x2tmp, $ytmp);
+    }
 
     print $ps "
     newpath
