@@ -23,13 +23,13 @@ print "postheader\n";
 
 $riw=100; #the difference between ROW/RIW and ROH/RIH must be same cause physics
 $row=120;
-$rih=80;
-$roh=100;
+$rih=60;
+$roh=80;
 
 $fiw=100;
 $fow=120;
-$fiw=80;
-$fow=100;
+$fiw=60;
+$fow=80;
 
 $length=200;
 
@@ -65,6 +65,10 @@ sub bellofy{    # bellows-drawing algorithm.
     $x0 $y0 moveto
     ";
 
+    #############
+    # Panel I
+    #############
+
     # draw shorter, outer pleat lines (corresponding to inner frame width)
     foreach $pleat (0..$numpleats){
         $xtmp=$x0-$riw/2;
@@ -93,6 +97,44 @@ sub bellofy{    # bellows-drawing algorithm.
         $xtmp=$x0-$riw/2;
         $ytmp=$y0+($pleat+1)*$meanpleat; 
         $x2tmp=$x0-$row/2;
+        $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+
+    #############
+    # Panel II
+    #############
+
+    $xII=$x0-($riw/2+$rih/2);
+
+    # draw shorter, outer pleat lines (corresponding to inner frame width)
+    foreach $pleat (0..$numpleats){
+        $xtmp=$xII-$riw/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$xII+$riw/2;
+        &line($xtmp, $ytmp, $x2tmp, $ytmp);
+    }
+    # determine length of longer, inner pleat lines
+    # draw draw longer, inner pleats
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xII-$row/2;
+        $ytmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        $x2tmp=$xII+$row/2;
+        &line($xtmp, $ytmp, $x2tmp, $ytmp);
+    }
+    # draw left zigzags I
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xII-$riw/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$xII-$row/2;
+        $y2tmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+    # draw left zigzags II
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xII-$riw/2;
+        $ytmp=$y0+($pleat+1)*$meanpleat; 
+        $x2tmp=$xII-$row/2;
         $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
         &line($xtmp, $ytmp, $x2tmp, $y2tmp);
     }
@@ -142,7 +184,7 @@ sub bellofy{    # bellows-drawing algorithm.
     $fow 0 lineto
     0 0 lineto
 
-    2 setlinewidth
+    1 setlinewidth
     stroke
     ";
     
