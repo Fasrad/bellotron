@@ -140,6 +140,45 @@ sub bellofy{    # bellows-drawing algorithm.
     }
 
     #############
+    # Panel IV
+    #############
+
+    $xIV=$x0+($riw/2+$rih/2);
+
+    # draw shorter, outer pleat lines (corresponding to inner frame width)
+    foreach $pleat (0..$numpleats){
+        $xtmp=$xIV-$rih/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$xIV+$rih/2;
+        &line($xtmp, $ytmp, $x2tmp, $ytmp);
+    }
+    # determine length of longer, inner pleat lines
+    # draw draw longer, inner pleats
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xIV-$roh/2;
+        $ytmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        $x2tmp=$xIV+$roh/2;
+        &line($xtmp, $ytmp, $x2tmp, $ytmp);
+    }
+    # draw left zigzags I
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xIV-$rih/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$xIV-$roh/2;
+        $y2tmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+    # draw left zigzags II
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xIV-$rih/2;
+        $ytmp=$y0+($pleat+1)*$meanpleat; 
+        $x2tmp=$xIV-$roh/2;
+        $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+
+
+    #############
     # Panel IIIl
     #############
 
@@ -177,6 +216,43 @@ sub bellofy{    # bellows-drawing algorithm.
         &line($xtmp, $ytmp, $x2tmp, $y2tmp);
     }
 
+    #############
+    # Panel IIIr
+    #############
+
+    $xIIIr=$x0+($riw/2+$rih/2) +($riw/2+$rih/2);
+
+    # draw shorter, outer pleat lines (corresponding to inner frame width)
+    foreach $pleat (0..$numpleats){
+        $xtmp=$xIIIr-$riw/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$xIIIr+$riw/2;
+        &line($xtmp, $ytmp, $x2tmp, $ytmp);
+    }
+    # determine length of longer, inner pleat lines
+    # draw draw longer, inner pleats
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xIIIr-$row/2;
+        $ytmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        $x2tmp=$xIIIr+$row/2;
+        &line($xtmp, $ytmp, $x2tmp, $ytmp);
+    }
+    # draw left zigzags I
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xIIIr-$riw/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$xIIIr-$row/2;
+        $y2tmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+    # draw left zigzags II
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xIIIr-$riw/2;
+        $ytmp=$y0+($pleat+1)*$meanpleat; 
+        $x2tmp=$xIIIr-$row/2;
+        $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
 
 
 
