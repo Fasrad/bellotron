@@ -72,7 +72,6 @@ sub bellofy{    # bellows-drawing algorithm.
         $x2tmp=$x0+$riw/2;
         &line($xtmp, $ytmp, $x2tmp, $ytmp);
     }
-
     # determine length of longer, inner pleat lines
     # draw draw longer, inner pleats
     foreach $pleat (0..$numpleats-1){
@@ -81,6 +80,25 @@ sub bellofy{    # bellows-drawing algorithm.
         $x2tmp=$x0+$row/2;
         &line($xtmp, $ytmp, $x2tmp, $ytmp);
     }
+    # draw left zigzags I
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$x0-$riw/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$x0-$row/2;
+        $y2tmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+    # draw left zigzags II
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$x0-$riw/2;
+        $ytmp=$y0+($pleat+1)*$meanpleat; 
+        $x2tmp=$x0-$row/2;
+        $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+
+
+
 
     # draw panel II
 
