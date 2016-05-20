@@ -220,6 +220,17 @@ sub bellofy{    # bellows-drawing algorithm.
         $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
         &line($xtmp, $ytmp, $x2tmp, $y2tmp);
     }
+    # make clipping path
+    $xtmp=$xIIIl-$row/4;
+    $ytmp=$y0-$pleat; 
+    $x2tmp=$xIIIl+$row/4;
+    $y2tmp=$y0+$meanpleat*($numpleats+1); 
+    $sigh=$xIIIl-$riw;
+    &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    &line($xtmp, $ytmp, $sigh, $ytmp);
+    &line($x2tmp, $y2tmp, $sigh, $y2tmp);
+    &line($sigh, $ytmp, $sigh, $y2tmp);
+
 
     #############
     # Panel IIIr
