@@ -2,7 +2,7 @@
 
 # perl script to generate postscript. 
 # Because I'm not doing trig in ps, nor am 
-# I about to use ps to write a web cgi program.. 
+# I about to use ps to write a web cgi program...
 
 # this needs cgiified later
 
@@ -21,13 +21,19 @@ open ($ps, ">", $fn) || die "can't open ps";
 
 print "postheader\n";
 
-$riw=100;
+$riw=100; #the difference between ROW/RIW and ROH/RIH must be same cause physics
 $row=120;
+$rih=80;
+$roh=100;
+
 $fiw=100;
 $fow=120;
+$fiw=80;
+$fow=100;
+
 $length=200;
 
-$x0=200;
+$x0=200; #a reference point
 $y0=200;
 
 #&commandline;
@@ -59,12 +65,29 @@ sub bellofy{    # bellows-drawing algorithm.
     $x0 $y0 moveto
     ";
 
+    # draw shorter, outer pleat lines (corresponding to inner frame width)
     foreach $pleat (0..$numpleats){
-        $xtmp=$x0-$row/2;
+        $xtmp=$x0-$riw/2;
         $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$x0+$riw/2;
+        &line($xtmp, $ytmp, $x2tmp, $ytmp);
+    }
+
+    # determine length of longer, inner pleat lines
+    # draw draw longer, inner pleats
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$x0-$row/2;
+        $ytmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
         $x2tmp=$x0+$row/2;
         &line($xtmp, $ytmp, $x2tmp, $ytmp);
     }
+
+    # draw panel II
+
+    # draw panel III
+
+    # draw panel IIII
+
 
     print $ps "
     newpath
