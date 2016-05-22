@@ -36,6 +36,15 @@ $length=200;
 $x0=300; #a reference point
 $y0=300;
 
+sub line{
+    print $ps "
+    newpath
+    $_[0] $_[1] moveto
+    $_[2] $_[3] lineto
+    stroke
+    ";
+}
+
 #&commandline;
 #&get_UI;
 &bellofy;
@@ -60,15 +69,22 @@ sub bellofy{    # bellows-drawing algorithm.
     $toplength=$numpleats*$meanpleat;
 
     #############
-    # Panel I
+    # Panel I (bottom "right"--bottom 1 of 2)
     #############
 
+    #refline
     print $ps "
     0 $toplength rlineto
     stroke 
     $x0 $y0 moveto
-    ";
 
+    /Times-Roman findfont
+    6 scalefont
+    setfont
+    newpath
+    $x0 $y0 moveto
+    (Panel I) show
+    ";
 
     # draw shorter, outer pleat lines (corresponding to inner frame width)
     foreach $pleat (0..$numpleats){
@@ -101,14 +117,39 @@ sub bellofy{    # bellows-drawing algorithm.
         $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
         &line($xtmp, $ytmp, $x2tmp, $y2tmp);
     }
+    # draw right zigzags A
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$x0+$riw/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$x0+$row/2;
+        $y2tmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+    # draw right zigzags B
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$x0+$riw/2;
+        $ytmp=$y0+($pleat+1)*$meanpleat; 
+        $x2tmp=$x0+$row/2;
+        $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
 
     #############
-    # Panel II
+    # Panel II ("right")
     #############
 
     $xII=$x0-($riw/2+$rih/2);
 
-    &line($xII, $y0, $xII, $y0+$toplength);
+#    &line($xII, $y0, $xII, $y0+$toplength);
+
+    print $ps "
+    /Times-Roman findfont
+    6 scalefont
+    setfont
+    newpath
+    $xII $y0 moveto
+    (Panel II) show
+    ";
 
     # draw shorter, outer pleat lines (corresponding to inner frame width)
     foreach $pleat (0..$numpleats){
@@ -124,150 +165,6 @@ sub bellofy{    # bellows-drawing algorithm.
         $ytmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
         $x2tmp=$xII+$roh/2;
         &line($xtmp, $ytmp, $x2tmp, $ytmp);
-    }
-    # draw left zigzags A
-    foreach $pleat (0..$numpleats-1){
-        $xtmp=$xII-$rih/2;
-        $ytmp=$y0+$pleat*$meanpleat; 
-        $x2tmp=$xII-$roh/2;
-        $y2tmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
-        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
-    }
-    # draw left zigzags B
-    foreach $pleat (0..$numpleats-1){
-        $xtmp=$xII-$rih/2;
-        $ytmp=$y0+($pleat+1)*$meanpleat; 
-        $x2tmp=$xII-$roh/2;
-        $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
-        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
-    }
-
-    #############
-    # Panel IV
-    #############
-
-    $xIV=$x0+($riw/2+$rih/2);
-
-    &line($xIV, $y0, $xIV, $y0+$toplength);
-
-    # draw shorter, outer pleat lines (corresponding to inner frame width)
-    foreach $pleat (0..$numpleats){
-        $xtmp=$xIV-$rih/2;
-        $ytmp=$y0+$pleat*$meanpleat; 
-        $x2tmp=$xIV+$rih/2;
-        &line($xtmp, $ytmp, $x2tmp, $ytmp);
-    }
-    # determine length of longer, inner pleat lines
-    # draw draw longer, inner pleats
-    foreach $pleat (0..$numpleats-1){
-        $xtmp=$xIV-$roh/2;
-        $ytmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
-        $x2tmp=$xIV+$roh/2;
-        &line($xtmp, $ytmp, $x2tmp, $ytmp);
-    }
-    # draw left zigzags A
-    foreach $pleat (0..$numpleats-1){
-        $xtmp=$xIV-$rih/2;
-        $ytmp=$y0+$pleat*$meanpleat; 
-        $x2tmp=$xIV-$roh/2;
-        $y2tmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
-        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
-    }
-    # draw left zigzags B
-    foreach $pleat (0..$numpleats-1){
-        $xtmp=$xIV-$rih/2;
-        $ytmp=$y0+($pleat+1)*$meanpleat; 
-        $x2tmp=$xIV-$roh/2;
-        $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
-        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
-    }
-
-
-    #############
-    # Panel IIIl
-    #############
-
-    $xIIIl=$xII-($riw/2+$rih/2);
-
-    # draw shorter, outer pleat lines (corresponding to inner frame width)
-    foreach $pleat (0..$numpleats){
-        $xtmp=$xIIIl-$riw/2;
-        $ytmp=$y0+$pleat*$meanpleat; 
-        $x2tmp=$xIIIl+$riw/2;
-        &line($xtmp, $ytmp, $x2tmp, $ytmp);
-    }
-    # determine length of longer, inner pleat lines
-    # draw draw longer, inner pleats
-    foreach $pleat (0..$numpleats-1){
-        $xtmp=$xIIIl-$row/2;
-        $ytmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
-        $x2tmp=$xIIIl+$row/2;
-        &line($xtmp, $ytmp, $x2tmp, $ytmp);
-    }
-    # draw left zigzags A
-    foreach $pleat (0..$numpleats-1){
-        $xtmp=$xIIIl-$riw/2;
-        $ytmp=$y0+$pleat*$meanpleat; 
-        $x2tmp=$xIIIl-$row/2;
-        $y2tmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
-        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
-    }
-    # draw left zigzags B
-    foreach $pleat (0..$numpleats-1){
-        $xtmp=$xIIIl-$riw/2;
-        $ytmp=$y0+($pleat+1)*$meanpleat; 
-        $x2tmp=$xIIIl-$row/2;
-        $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
-        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
-    }
-    # make clipping path
-    $xtmp=$xIIIl-$row/4;
-    $ytmp=$y0-$pleat; 
-    $x2tmp=$xIIIl+$row/4;
-    $y2tmp=$y0+$meanpleat*($numpleats+1); 
-    $sigh=$xIIIl-$riw;
-    &line($xtmp, $ytmp, $x2tmp, $y2tmp);
-    &line($xtmp, $ytmp, $sigh, $ytmp);
-    &line($x2tmp, $y2tmp, $sigh, $y2tmp);
-    &line($sigh, $ytmp, $sigh, $y2tmp);
-
-
-    #############
-    # Panel IIIr
-    #############
-
-    $xIIIr=$x0+($riw/2+$rih/2) +($riw/2+$rih/2);
-
-    # draw shorter, outer pleat lines (corresponding to inner frame width)
-    foreach $pleat (0..$numpleats){
-        $xtmp=$xIIIr-$riw/2;
-        $ytmp=$y0+$pleat*$meanpleat; 
-        $x2tmp=$xIIIr+$riw/2;
-        &line($xtmp, $ytmp, $x2tmp, $ytmp);
-    }
-    # determine length of longer, inner pleat lines
-    # draw draw longer, inner pleats
-    foreach $pleat (0..$numpleats-1){
-        $xtmp=$xIIIr-$row/2;
-        $ytmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
-        $x2tmp=$xIIIr+$row/2;
-        &line($xtmp, $ytmp, $x2tmp, $ytmp);
-    }
-    # draw left zigzags A
-    foreach $pleat (0..$numpleats-1){
-        $xtmp=$xIIIr-$riw/2;
-        $ytmp=$y0+$pleat*$meanpleat; 
-        $x2tmp=$xIIIr-$row/2;
-        $y2tmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
-        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
-    }
-    # draw left zigzags B
-    foreach $pleat (0..$numpleats-1){
-        $xtmp=$xIIIr-$riw/2;
-        $ytmp=$y0+($pleat+1)*$meanpleat; 
-        $x2tmp=$xIIIr-$row/2;
-        $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
-        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
     }
 
 
@@ -319,15 +216,6 @@ sub bellofy{    # bellows-drawing algorithm.
 
 } #bellofy
  
-sub line{
-    print $ps "
-    newpath
-    $_[0] $_[1] moveto
-    $_[2] $_[3] lineto
-    stroke
-    ";
-}
-
    # precalculation of globally-relevant parameters
     # length of top and side center panel lines and/or outer corner lines 
     # from bellows length and vector math
