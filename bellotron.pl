@@ -167,7 +167,78 @@ sub bellofy{    # bellows-drawing algorithm.
         &line($xtmp, $ytmp, $x2tmp, $ytmp);
     }
 
+    #############
+    # Panel III ("top")
+    #############
 
+    $xIII=$x0-($riw+$rih);
+
+    #refline
+    print $ps "
+    newpath
+    $xIII $y0 moveto
+    0 $toplength rlineto
+    stroke 
+    $xIII $y0 moveto
+
+    /Times-Roman findfont
+    6 scalefont
+    setfont
+    newpath
+    $xIII $y0 moveto
+    (Panel III) show
+    ";
+
+    # draw shorter, outer pleat lines (corresponding to inner frame width)
+    foreach $pleat (0..$numpleats){
+        $xtmp=$xIII-$riw/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$xIII+$riw/2;
+        &line($xtmp, $ytmp, $x2tmp, $ytmp);
+    }
+    # determine length of longer, inner pleat lines
+    # draw draw longer, inner pleats
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xIII-$row/2;
+        $ytmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        $x2tmp=$xIII+$row/2;
+        &line($xtmp, $ytmp, $x2tmp, $ytmp);
+    }
+    # draw left zigzags A
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xIII-$riw/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$xIII-$row/2;
+        $y2tmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+    # draw left zigzags B
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xIII-$riw/2;
+        $ytmp=$y0+($pleat+1)*$meanpleat; 
+        $x2tmp=$xIII-$row/2;
+        $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+    # draw right zigzags A
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xIII+$riw/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$xIII+$row/2;
+        $y2tmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+    # draw right zigzags B
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xIII+$riw/2;
+        $ytmp=$y0+($pleat+1)*$meanpleat; 
+        $x2tmp=$xIII+$row/2;
+        $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+
+
+# end of panel drawing
 
     print $ps "
     newpath
