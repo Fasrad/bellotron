@@ -33,8 +33,8 @@ $fow=80;
 
 $length=200;
 
-$x0=300; #a reference point
-$y0=300;
+$x0=500; #a reference point
+$y0=500;
 
 sub line{
     print $ps "
@@ -270,6 +270,75 @@ sub bellofy{    # bellows-drawing algorithm.
         &line($xtmp, $ytmp, $x2tmp, $ytmp);
     }
 
+    #############
+    # Panel V (bottom "left"--bottom 2 of 2)
+    #############
+
+    $xV=$xIII-($riw+$rih);
+
+    #refline
+    print $ps "
+    newpath
+    $xV $y0 moveto
+    0 $toplength rlineto
+    stroke 
+    $xV $y0 moveto
+
+    /Times-Roman findfont
+    6 scalefont
+    setfont
+    newpath
+    $xV $y0 moveto
+    (Panel v) show
+    ";
+
+    # draw shorter, outer pleat lines (corresponding to inner frame width)
+    foreach $pleat (0..$numpleats){
+        $xtmp=$xV-$riw/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$xV+$riw/2;
+        &line($xtmp, $ytmp, $x2tmp, $ytmp);
+    }
+    # determine length of longer, inner pleat lines
+    # draw draw longer, inner pleats
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xV-$row/2;
+        $ytmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        $x2tmp=$xV+$row/2;
+        &line($xtmp, $ytmp, $x2tmp, $ytmp);
+    }
+    # draw left zigzags A
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xV-$riw/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$xV-$row/2;
+        $y2tmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+    # draw left zigzags B
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xV-$riw/2;
+        $ytmp=$y0+($pleat+1)*$meanpleat; 
+        $x2tmp=$xV-$row/2;
+        $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+    # draw right zigzags A
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xV+$riw/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$xV+$row/2;
+        $y2tmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
+    # draw right zigzags B
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xV+$riw/2;
+        $ytmp=$y0+($pleat+1)*$meanpleat; 
+        $x2tmp=$xV+$row/2;
+        $y2tmp=$y0+($pleat+1)*$meanpleat-$meanpleat/2; 
+        &line($xtmp, $ytmp, $x2tmp, $y2tmp);
+    }
 
 
 # end of panel drawing
