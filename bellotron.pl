@@ -237,6 +237,40 @@ sub bellofy{    # bellows-drawing algorithm.
         &line($xtmp, $ytmp, $x2tmp, $y2tmp);
     }
 
+    #############
+    # Panel IV ("left")
+    #############
+
+    $xIV=$xIII-($riw/2+$rih/2);
+
+#    &line($xII, $y0, $xII, $y0+$toplength);
+
+    print $ps "
+    /Times-Roman findfont
+    6 scalefont
+    setfont
+    newpath
+    $xIV $y0 moveto
+    (Panel IV) show
+    ";
+
+    # draw shorter, outer pleat lines (corresponding to inner frame width)
+    foreach $pleat (0..$numpleats){
+        $xtmp=$xIV-$rih/2;
+        $ytmp=$y0+$pleat*$meanpleat; 
+        $x2tmp=$xIV+$rih/2;
+        &line($xtmp, $ytmp, $x2tmp, $ytmp);
+    }
+    # determine length of longer, inner pleat lines
+    # draw draw longer, inner pleats
+    foreach $pleat (0..$numpleats-1){
+        $xtmp=$xIV-$roh/2;
+        $ytmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
+        $x2tmp=$xIV+$roh/2;
+        &line($xtmp, $ytmp, $x2tmp, $ytmp);
+    }
+
+
 
 # end of panel drawing
 
