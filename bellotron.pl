@@ -33,8 +33,8 @@ $fow=80;
 
 $length=200;
 
-$x0=$row*5; #a reference point
-$y0=500;
+$x0=$row*3; #a reference point
+$y0=300;
 
 sub acos { atan2( sqrt(1 - $_[0] * $_[0]), $_[0] ) }
 
@@ -150,9 +150,17 @@ sub bellofy{    # bellows-drawing algorithm.
     # Panel II ("right")
     #############
 
-    #$xII=$xI-($riw/2+$rih/2);
+    $xII=-($riw/2+$rih/2);
 
 #    &line($xII, $y0, $xII, $y0+$toplength);
+
+    print $ps "
+    %move to start of panel 
+    newpath
+    $xII 0 moveto
+    currentpoint translate
+    0 0 moveto
+    ";
 
     print $ps "
     /Times-Roman findfont
@@ -180,49 +188,8 @@ sub bellofy{    # bellows-drawing algorithm.
         &line($xtmp, $ytmp, $x2tmp, $ytmp);
     }
 
-
-
 # end of panel drawing
 
-    print $ps "
-    newpath
-    0 0 moveto
-    0 $row lineto
-    $row $row lineto
-    $row 0 lineto
-    0 0 lineto";
-
-    $tmp=($row-$riw)/2;
-
-    print $ps "
-    $tmp $tmp translate
-    0 0 moveto
-    0 $riw lineto
-    $riw $riw lineto
-    $riw 0 lineto
-    0 0 lineto
-
-    -$tmp -$tmp translate
-    0 0 moveto
-    0 $fiw lineto
-    $fiw $fiw lineto
-    $fiw 0 lineto
-    0 0 lineto";
-
-    $tmp=($fow-$fiw)/2;
-
-    print $ps "
-    $tmp $tmp translate
-    0 0 moveto
-    0 $fow lineto
-    $fow $fow lineto
-    $fow 0 lineto
-    0 0 lineto
-
-    1 setlinewidth
-    stroke
-    ";
-    
     print $ps "
     showpage 
     ";
