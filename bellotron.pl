@@ -89,7 +89,8 @@ sub bellofy{    # bellows-drawing algorithm.
     foreach $pleat (0..$numpleats){
         $xtmp=$xI-$riw/2;
         $ytmp=$y0+$pleat*$meanpleat; 
-        $x2tmp=$xI+$riw/2;
+        $x2tmp=$xI+$riw/2; # complicate this to mask 
+        print $ps "%outer (shorter) line for pleat $pleat of panel I\n";
         &line($xtmp, $ytmp, $x2tmp, $ytmp);
     }
     # determine length of longer, inner pleat lines
@@ -155,6 +156,7 @@ sub bellofy{    # bellows-drawing algorithm.
         $xtmp=$xII-$rih/2;
         $ytmp=$y0+$pleat*$meanpleat; 
         $x2tmp=$xII+$rih/2;
+        print $ps "%outer (shorter) line for pleat $pleat of panel II\n";
         &line($xtmp, $ytmp, $x2tmp, $ytmp);
     }
     # determine length of longer, inner pleat lines
@@ -193,6 +195,7 @@ sub bellofy{    # bellows-drawing algorithm.
         $xtmp=$xIII-$riw/2;
         $ytmp=$y0+$pleat*$meanpleat; 
         $x2tmp=$xIII+$riw/2;
+        print $ps "%outer (shorter) line for pleat $pleat of panel III\n";
         &line($xtmp, $ytmp, $x2tmp, $ytmp);
     }
     # determine length of longer, inner pleat lines
@@ -266,6 +269,7 @@ sub bellofy{    # bellows-drawing algorithm.
         $xtmp=$xIV-$roh/2;
         $ytmp=$y0+$pleat*$meanpleat+$meanpleat/2; 
         $x2tmp=$xIV+$roh/2;
+        print $ps "%outer (shorter) line for pleat $pleat of panel IV\n";
         &line($xtmp, $ytmp, $x2tmp, $ytmp);
     }
 
@@ -288,7 +292,7 @@ sub bellofy{    # bellows-drawing algorithm.
     setfont
     newpath
     $xV $y0 moveto
-    (Panel v) show
+    (Panel V) show
     ";
 
     # draw shorter, outer pleat lines (corresponding to inner frame width)
@@ -296,6 +300,7 @@ sub bellofy{    # bellows-drawing algorithm.
         $xtmp=$xV-$riw/2;
         $ytmp=$y0+$pleat*$meanpleat; 
         $x2tmp=$xV+$riw/2;
+        print $ps "%outer (shorter) line for pleat $pleat of panel V\n";
         &line($xtmp, $ytmp, $x2tmp, $ytmp);
     }
     # determine length of longer, inner pleat lines
