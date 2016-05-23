@@ -75,6 +75,18 @@ sub bellofy{    # bellows-drawing algorithm.
     0 0 moveto
     ";
 
+    $row_h=$row/2;
+    print $ps "
+    %rotation transform
+    $row_h 0 moveto
+    currentpoint translate
+    0 rotate
+    -$row_h 0 moveto
+    currentpoint translate
+    0 0 moveto
+    ";
+
+
     #refline
     print $ps "
     0 $toplength rlineto
@@ -150,7 +162,7 @@ sub bellofy{    # bellows-drawing algorithm.
     # Panel II ("right")
     #############
 
-    $xII=-($riw/2+$rih/2);
+    $xII=-($row/2+$roh/2);
 
 #    &line($xII, $y0, $xII, $y0+$toplength);
 
@@ -161,6 +173,18 @@ sub bellofy{    # bellows-drawing algorithm.
     currentpoint translate
     0 0 moveto
     ";
+
+    $rih_h=$rih/2;
+    print $ps "
+    %rotation transform
+    $rih_h 0 moveto
+    currentpoint translate
+    10 rotate
+    -$rih_h 0 moveto
+    currentpoint translate
+    0 0 moveto
+    ";
+
 
     print $ps "
     /Times-Roman findfont
